@@ -1,0 +1,92 @@
+package Exercício_03;
+
+public class NodeStack<E> implements Stack<E> {
+
+	protected Node<E> top; // referência para o nodo cabeça
+	protected int size; // quantidade de elementos na pilha
+
+	public NodeStack() { // constrói uma pilha vazia
+		top = null;
+		size = 0;
+	}
+	
+	public int size() {
+		return size; 
+	}
+	
+	public boolean isEmpty() {
+		if (top == null) { 
+			return true;
+		}
+		return false;
+	}
+	
+	public void push(E elem) {
+		Node<E> v = new Node<E>(elem, top); // cria e encadeia um nodo novo
+		top = v;
+		size++;
+	}
+	
+	public E top() throws EmptyStackException {
+		if (isEmpty()) { 
+			throw new EmptyStackException("Stack is empty."); 
+		}
+		return top.getElement();
+	}
+	
+	public E pop() throws EmptyStackException {
+		Node<E> aux = top;
+		if (isEmpty()) throw new EmptyStackException("Stack is empty.");
+		E temp = top.getElement();
+		top = top.getNext(); // desencadeia o nodo topo
+		aux.setNext(null);
+		size--;
+		return temp;
+	}
+	
+	public String toString() {
+		String s;
+		Node<E> p = top;
+		s = "[";
+		
+		while (p != null) {
+			s += p.getElement();
+			s += ", ";
+			p = p.getNext();
+		}
+		
+		if (s.length() > 1) {
+			s = s.substring(0, s.length() - 2);
+		}
+		return s + "]";
+	}
+	
+	/*
+	public NodeStack<E> reverseList(NodeStack<E> pilha) 
+	{ 
+	    // Stack to store elements of list 
+	    NodeStack<Node> stk = new NodeStack<Node> (); 
+	  
+	    // Push the elements of list to stack 
+	    Node ptr = top; 
+	    while (ptr.next != null) 
+	    { 
+	        stk.push(ptr); 
+	        ptr = ptr.next; 
+	    } 
+	  
+	    // Pop from stack and replace 
+	    // current nodes value' 
+	    head = ptr; 
+	    while (!stk.isEmpty())
+	    { 
+	        ptr.next = stk.peek(); 
+	        ptr = ptr.next; 
+	        stk.pop(); 
+	    } 
+	    ptr.next = null; 
+	      
+	    return head; 
+	} 
+	}*/
+}
